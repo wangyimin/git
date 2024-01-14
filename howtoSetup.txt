@@ -1,0 +1,57 @@
+1. Setup user information
+$git config --global user.email <email>
+$git config --global user.name <name>
+
+2. Create client key
+$cd /C/Users/[username]/.ssh
+$ssh-keygen -t rsa
+
+3. Create sshd key
+$cd /C/"Program Files"/Git/etc/ssh
+$ssh-keygen -t rsa -f ssh_host_rsa_key
+
+4. Start sshd
+$/usr/bin/sshd.exe
+
+5. Create authorized key
+C:\>notedpad C:\Users\[username]\.ssh\authorized_keys
+copy content of client public key [id_rsa.pub]
+
+6. Open ssh port[22]
+C:\wf.msc
+
+7. Test sshd
+$ssh localhost
+
+8. Create repo
+C:\>mkdir C:/<Git>
+$cd /C/<Git>
+$git init --bare --shared
+
+9. Clone git
+$cd /C/<Git>
+$git clone ssh://localhost/C/<Git>/xxx.git
+$cd /C/<Git>/xxx
+$git add /
+$git commit -m "<comment>"
+$git push
+
+10. Add remote repository(option)
+$git remote add origin ssh://localhost/C/<Git>/xxx.git
+$git remote -v
+$git push --set-upstream origin master
+$git push
+
+11. Add privilege
+git config --global --add safe.directory '*'
+git config --global --add safe.directory <specific path>
+
+99. refer
+C:\Program Files\Git\etc\ssh\ssh_config
+C:\Program Files\Git\etc\ssh\sshd_config
+
+$git config --global core.quotepath false (Japanese charecter)
+$git config --global core.autocrlf true (windows)
+$git config --global gui.encoding utf-8
+
+$git archive --output=patch.zip HEAD $(git diff --name-only HEAD <sha>)
